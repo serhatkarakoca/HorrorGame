@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DoorCellOpen : MonoBehaviour {
-
-	public float TheDistance;
+public class TakeObjects : MonoBehaviour
+{
+    public Flashlight flashlight;
+    public float TheDistance;
 	public GameObject ActionDisplay;
 	public GameObject ActionText;
-	public GameObject TheDoor;
-	public AudioSource CreakSound;
+	public AudioSource TakeSound;
+    public GameObject Light;
 
-
+   
 	void Update () {
 		TheDistance = PlayerCasting.DistanceFromTarget;
 	}
@@ -20,15 +21,20 @@ public class DoorCellOpen : MonoBehaviour {
 		if (TheDistance <= 2) {
 			ActionDisplay.SetActive (true);
 			ActionText.SetActive (true);
-			 ActionText.GetComponent<Text>().text = "Open the door";
+            ActionText.GetComponent<Text>().text = "Take";
+
 		}
 		if (Input.GetButtonDown("Action")) {
 			if (TheDistance <= 2) {
-				this.GetComponent<BoxCollider>().enabled = false;
+                if(this.gameObject.CompareTag("battery"))
+                    flashlight.increaseBattery();
+                if(this.gameObject.CompareTag("flashlight"))
+                    Light.gameObject.SetActive(true);
+
+                this.gameObject.SetActive(false);
 				ActionDisplay.SetActive(false);
 				ActionText.SetActive(false);
-				TheDoor.GetComponent<Animation> ().Play ("KapiAnimasyonu");
-				CreakSound.Play ();
+				TakeSound.Play ();
 			}
 		}
 	}
