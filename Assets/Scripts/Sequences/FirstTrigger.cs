@@ -12,6 +12,7 @@ public class FirstTrigger : MonoBehaviour
 	public GameObject TheMarker;
 
 	void OnTriggerEnter () {
+		this.GetComponent<BoxCollider>().enabled = false;
 		ThePlayer.GetComponent<FirstPersonController> ().enabled = false;
 		StartCoroutine (ScenePlayer ());
 	}
