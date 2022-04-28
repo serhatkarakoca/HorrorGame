@@ -11,6 +11,7 @@ public class TakeObjects : MonoBehaviour
 	public GameObject ActionText;
 	public AudioSource TakeSound;
     public GameObject Light;
+	public GameManagerScript gm;
 
    
 	void Update () {
@@ -30,6 +31,10 @@ public class TakeObjects : MonoBehaviour
                     flashlight.increaseBattery();
                 if(this.gameObject.CompareTag("flashlight"))
                     Light.gameObject.SetActive(true);
+				if(this.gameObject.CompareTag("key")){
+					gm.increaseKey();
+				}
+					
 
                 this.gameObject.SetActive(false);
 				ActionDisplay.SetActive(false);

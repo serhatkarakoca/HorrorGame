@@ -10,7 +10,8 @@ public class DoorCellOpen : MonoBehaviour {
 	public GameObject ActionText;
 	public GameObject TheDoor;
 	public AudioSource CreakSound;
-
+	public AudioSource LockedSound;
+	public GameManagerScript gm;
 
 	void Update () {
 		TheDistance = PlayerCasting.DistanceFromTarget;
@@ -24,11 +25,26 @@ public class DoorCellOpen : MonoBehaviour {
 		}
 		if (Input.GetButtonDown("Action")) {
 			if (TheDistance <= 2) {
-				this.GetComponent<BoxCollider>().enabled = false;
-				ActionDisplay.SetActive(false);
-				ActionText.SetActive(false);
-				TheDoor.GetComponent<Animation> ().Play ("KapiAnimasyonu");
-				CreakSound.Play ();
+				if(TheDoor.gameObject.tag != "locked"){
+					this.GetComponent<BoxCollider>().enabled = false;
+					ActionDisplay.SetActive(false);
+					ActionText.SetActive(false);
+					TheDoor.GetComponent<Animation> ().Play ("KapiAnimasyonu");
+					CreakSound.Play ();
+				}else{
+					if(TheDoor.gameObject.tag == "locked" && gm.hasKey==true){
+					gm.hasKey = false;
+					this.GetComponent<BoxCollider>().enabled = false;
+					ActionDisplay.SetActive(false);
+					ActionText.SetActive(false);
+					TheDoor.GetComponent<Animation> ().Play ("KapiAnimasyonu");
+					CreakSound.Play ();
+				}else{
+					LockedSound.Play();
+				}
+					
+				}
+				
 			}
 		}
 	}
