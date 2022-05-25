@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ActivateStalker : MonoBehaviour
 {
+    public AudioSource HorrorMusic;
+
     void OnTriggerEnter(Collider other)
     {
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         StalkerAI.isStalking = true;
+        HorrorMusic.Play();
     }
 }
